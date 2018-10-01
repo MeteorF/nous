@@ -1,0 +1,23 @@
+{
+    "DEFAULT": {
+        "VERSION": "0.0.1",
+        "SECRET_KEY": "",
+        "ADMIN_NAME": "...",
+        "AWS_DEFAULT_REGION": "...",
+        "MAX_IMAGE_SIZE": 5242880,
+        "INPUT_DIR": "input",
+        "OUTPUT_DIR": "output",
+        "SETTINGS_DIR": "settings",
+        "ENV": "DEV"
+    },
+    "DEV": {
+        "DEBUG": "T",
+        "TEST_TMP_DIR": "tests",
+        "TEST_TIMEOUT": 20
+    },
+    "PRD": {
+        "DEBUG": "F",
+        "SERVICE": "travis-ci",
+        "HOOK_URL": "..."
+    }
+}
