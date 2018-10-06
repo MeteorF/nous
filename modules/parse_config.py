@@ -5,7 +5,7 @@
 
 
 # ../utilities/parse_config
-# Last modify: 20181001
+# Last modify: 20181006
 
 
 # # Parse Config
@@ -18,12 +18,12 @@
 import os
 import json
 
-# from util_path_ops import dir_check
-import importlib
-spec = importlib.util.spec_from_file_location("main", "util_path_ops.py")
-util_path_ops = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(util_path_ops)
 from util_path_ops import dir_check
+# import importlib
+# spec = importlib.util.spec_from_file_location("main", "util_path_ops.py")
+# util_path_ops = importlib.util.module_from_spec(spec)
+# spec.loader.exec_module(util_path_ops)
+# from util_path_ops import dir_check
 
 
 # In[3]:
@@ -54,7 +54,8 @@ def parse_config():
     
     global VERSION, ENV, DEBUG, __settings__
     
-    config_file = 'settings/config.json'
+#     config_file = 'settings/config.json'
+    config_file = 'C:\\Users\\alana\\AnacondaProjects\\nous\\settings\\config.json'
     
     config_file_path = dir_check(config_file, dir_create=False, return_type='Path')
     
