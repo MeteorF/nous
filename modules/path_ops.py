@@ -4,8 +4,8 @@
 # In[1]:
 
 
-# ../utilities/util_path_ops
-# Last modify: 20181001
+# ../utilities/path_ops
+# Last modify: 20181007
 
 
 # ## Picking Out Components of a Path
@@ -24,9 +24,10 @@
 
 from os import mkdir
 import pathlib
+import datetime
 
 
-# In[23]:
+# In[3]:
 
 
 def dir_check_bak (dir_check = None, dir_create = True, return_type = 'Bool'):
@@ -66,7 +67,7 @@ def dir_check_bak (dir_check = None, dir_create = True, return_type = 'Bool'):
             return str(dir_to_check)
 
 
-# In[49]:
+# In[4]:
 
 
 def dir_check (dir_check = None, dir_create = True, return_type = 'Exist'):
@@ -77,13 +78,13 @@ def dir_check (dir_check = None, dir_create = True, return_type = 'Exist'):
         
     else:
         current_dir = pathlib.Path.cwd()
-        proj_dir = pathlib.Path('..')
-        dir_query = proj_dir / dir_check
+        # proj_dir = pathlib.Path('..')
+        dir_query = pathlib.Path(dir_check)
         dir_to_check = dir_query.resolve()
-        dir_to_check_exist = dir_query.exists()
+        dir_to_check_exist = dir_to_check.exists()
         
         print(f'current_dir = {current_dir}')
-        print(f'proj_dir = {proj_dir.resolve()}')
+        # print(f'proj_dir = {proj_dir.resolve()}')
         print(f'dir_to_check = {dir_to_check} | exist = {dir_query.exists()} | is_dir = {dir_query.is_dir()} | is_file = {dir_query.is_file()}')
         
         if dir_to_check_exist == True :
@@ -107,7 +108,38 @@ def dir_check (dir_check = None, dir_create = True, return_type = 'Exist'):
             return str(dir_to_check)
 
 
-# In[4]:
+# In[5]:
+
+
+def getOutputFileName(extension='.txt', path=None, custom_name=None):
+    ## Output file name setting
+    
+    if (path == None):
+        raise ValueError("No path is received")
+    else:
+        # Parse string to path object
+        path = dir_check(path, dir_create=False, return_type='Path')
+        path = pathlib.PurePath(path)
+        
+    now = datetime.datetime.now()
+    # print(now.strftime("%Y%m%d_%H%M%S"))
+    timeStampStr = str(now.strftime("%Y%m%d_%H%M%S%f"))
+    
+    if (custom_name == None):
+        output_filename = 'output_' + timeStampStr + extension
+    elif (len(custom_name) > 0):
+        output_filename = custom_name[:20] + '_' + timeStampStr + extension
+    elif (len(custom_name) == 0):
+        output_filename = timeStampStr + extension
+    
+    ## output_filename = os.path.join(output_folder, output_filename) + extension
+    path = path.joinpath(output_filename)
+    
+    print(f'path = {path}')
+    return str(path)
+
+
+# In[6]:
 
 
 def display_dir_tree(directory):
@@ -120,16 +152,16 @@ def display_dir_tree(directory):
         print(f'{spacer}+ {path.name}')
 
 
-# In[54]:
+# In[7]:
 
 
 def main():
     print(f"dir_check(Path option) = {dir_check('settings/abcccc', dir_create = False, return_type='Path')}")
     print(f"dir_check(Exist option) = {dir_check('settings/abcccc', dir_create = False, return_type='Exist')}")
-    display_dir_tree(pathlib.Path.cwd().parent)
+    # display_dir_tree(pathlib.Path.cwd().parent)
 
 
-# In[55]:
+# In[8]:
 
 
 if __name__ == '__main__':

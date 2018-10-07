@@ -5,9 +5,11 @@
         "ADMIN_NAME": "...",
         "AWS_DEFAULT_REGION": "...",
         "MAX_IMAGE_SIZE": 5242880,
-        "INPUT_DIR": "input",
-        "OUTPUT_DIR": "output",
-        "SETTINGS_DIR": "settings",
+        "PROJ_DIR": "nous",
+        "INPUT_DIR": "../input",
+        "OUTPUT_DIR": "../output",
+        "SETTINGS_DIR": "../settings",
+        "LOG_DIR": "../logs",
         "ENV": "DEV"
     },
     "DEV": {
