@@ -23,6 +23,7 @@
 
 
 from os import mkdir
+from os import chdir
 import pathlib
 import datetime
 
@@ -30,55 +31,15 @@ import datetime
 # In[3]:
 
 
-def dir_check_bak (dir_check = None, dir_create = True, return_type = 'Bool'):
-    print(f'===== util_dir_check/util_path_ops =====')
-    
-    if dir_check == None:
-        raise ValueError("No directory for checking.")
-        
-    else:
-        current_dir = pathlib.Path.cwd()
-        print(f'current_dir = {current_dir}')
-        proj_dir = current_dir.relative_to('../nous')
-        dir_to_check = proj_dir.joinpath(dir_check)
-        dir_to_check_exist = False
-        
-        if dir_to_check.exists() :
-            print (f'{dir_to_check} | exist, no action required.')
-            dir_to_check_exist = True
-        else:
-            
-            # Not contain extension, is a directory
-            if len(dir_to_check.suffix) == 0 and dir_create == True:
-                print (f'{dir_to_check} | exist, dir created.')
-                mkdir(dir_to_check)
-                dir_to_check_exist = True
-            
-            elif len(dir_to_check.suffix) == 0 and dir_create == False :
-                print (f'{dir_to_check} | exist, dir not created according to config.')
-                
-            # Contains extension, Not a directory
-            elif len(dir_to_check.suffix) != 0:
-                raise ValueError(f'{dir_to_check} | file not exist.')
-        
-        if return_type == 'Bool':
-            return dir_to_check_exist
-        elif return_type == 'Path':
-            return str(dir_to_check)
-
-
-# In[4]:
-
-
 def dir_check (dir_check = None, dir_create = True, return_type = 'Exist'):
-    print(f'===== util_dir_check/util_path_ops =====')
+    print(f'===== path_ops/dir_check =====')
     
     if dir_check == None:
         raise ValueError("No directory for checking.")
         
     else:
         current_dir = pathlib.Path.cwd()
-        # proj_dir = pathlib.Path('..')
+        # proj_dir = pathlib.Path(root_dir)
         dir_query = pathlib.Path(dir_check)
         dir_to_check = dir_query.resolve()
         dir_to_check_exist = dir_to_check.exists()
@@ -92,15 +53,17 @@ def dir_check (dir_check = None, dir_create = True, return_type = 'Exist'):
         else:
             # Not contain extension, is a directory
             if len(dir_to_check.suffix) == 0 and dir_create == True:
-                print (f'{dir_to_check} | exist, dir created.')
+                print (f'{dir_to_check} | not exist, dir created.')
                 mkdir(dir_to_check)
             
             if len(dir_to_check.suffix) == 0 and dir_create == False :
-                print (f'{dir_to_check} | exist, dir not created according to config.')
+                print (f'{dir_to_check} | not exist, dir not created according to config.')
                 
             # Contains extension, Not a directory
             elif len(dir_to_check.suffix) != 0:
                 raise ValueError(f'{dir_to_check} | file not exist.')
+        
+            print ("\n")
         
         if return_type == 'Exist':
             return dir_to_check_exist
@@ -108,11 +71,12 @@ def dir_check (dir_check = None, dir_create = True, return_type = 'Exist'):
             return str(dir_to_check)
 
 
-# In[5]:
+# In[4]:
 
 
 def getOutputFileName(extension='.txt', path=None, custom_name=None):
     ## Output file name setting
+    print(f'===== path_ops/getOutputFileName =====')
     
     if (path == None):
         raise ValueError("No path is received")
@@ -136,14 +100,15 @@ def getOutputFileName(extension='.txt', path=None, custom_name=None):
     path = path.joinpath(output_filename)
     
     print(f'path = {path}')
+    print ("\n")
     return str(path)
 
 
-# In[6]:
+# In[5]:
 
 
 def display_dir_tree(directory):
-    print(f'===== util_dir_check/display_dir_tree =====')
+    print(f'===== path_ops/display_dir_tree =====')
     print(f'+ {directory}')
     
     for path in sorted(directory.rglob('*')):
@@ -152,16 +117,16 @@ def display_dir_tree(directory):
         print(f'{spacer}+ {path.name}')
 
 
-# In[7]:
+# In[6]:
 
 
 def main():
-    print(f"dir_check(Path option) = {dir_check('settings/abcccc', dir_create = False, return_type='Path')}")
-    print(f"dir_check(Exist option) = {dir_check('settings/abcccc', dir_create = False, return_type='Exist')}")
+    print(f"dir_check(Path option) = {dir_check('settings/abcccc', dir_create = False, return_type='Path')} \n")
+    print(f"dir_check(Exist option) = {dir_check('settings/abcccc', dir_create = False, return_type='Exist')} \n")
     # display_dir_tree(pathlib.Path.cwd().parent)
 
 
-# In[8]:
+# In[7]:
 
 
 if __name__ == '__main__':

@@ -35,6 +35,7 @@ class global_config:
         self.VERSION = args['VERSION']
         self.ENV = args['ENV']
         self.DEBUG = args['DEBUG']
+        self.PROJ_PATH = args['PROJ_PATH']
         self.INPUT_PATH = args['INPUT_PATH']
         self.OUTPUT_PATH = args['OUTPUT_PATH']
         self.LOG_PATH = args['LOG_PATH']
@@ -43,6 +44,7 @@ class global_config:
         print (f"VERSION = {self.VERSION} | type = {type(self.VERSION)}")
         print (f"ENV = {self.ENV} | type = {type(self.ENV)}")
         print (f"DEBUG = {self.DEBUG} | type = {type(self.DEBUG)}")
+        print (f"PROJ_PATH = {self.PROJ_PATH} | type = {type(self.PROJ_PATH)}")
         print (f"INPUT_PATH = {self.INPUT_PATH} | type = {type(self.INPUT_PATH)}")
         print (f"OUTPUT_PATH = {self.OUTPUT_PATH} | type = {type(self.OUTPUT_PATH)}")
         print (f"LOG_PATH = {self.LOG_PATH} | type = {type(self.LOG_PATH)}")
@@ -94,6 +96,7 @@ def parse_config():
         "VERSION": VERSION,
         "ENV": ENV,
         "DEBUG": DEBUG,
+        "PROJ_PATH": dir_check(get_config_val('PROJ_DIR'), dir_create=False, return_type='Path'),
         "INPUT_PATH": dir_check(get_config_val('INPUT_DIR'), dir_create=True, return_type='Path'),
         "OUTPUT_PATH": dir_check(get_config_val('OUTPUT_DIR'), dir_create=True, return_type='Path'),
         "LOG_PATH": dir_check(get_config_val('LOG_DIR'), dir_create=True, return_type='Path')
