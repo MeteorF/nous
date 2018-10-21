@@ -5,7 +5,7 @@
         "ADMIN_NAME": "...",
         "AWS_DEFAULT_REGION": "...",
         "MAX_IMAGE_SIZE": 5242880,
-        "PROJ_DIR": "C:\\Users\\alana\\AnacondaProjects\\nous",
+        "PROJ_DIR": "C:/Users/alana/AnacondaProjects/nous",
         "INPUT_DIR": "../input",
         "OUTPUT_DIR": "../output",
         "SETTINGS_DIR": "../settings",
