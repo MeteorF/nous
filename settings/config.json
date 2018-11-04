@@ -1,23 +1,25 @@
 {
     "DEFAULT": {
-        "VERSION": "0.0.1",
-        "SECRET_KEY": "",
         "ADMIN_NAME": "...",
         "AWS_DEFAULT_REGION": "...",
         "MAX_IMAGE_SIZE": 5242880,
         "PROJ_DIR": "C:/Users/alana/AnacondaProjects/nous",
-        "INPUT_DIR": "../input",
-        "OUTPUT_DIR": "../output",
-        "SETTINGS_DIR": "../settings",
-        "LOG_DIR": "../logs",
+        "INPUT_DIR": "input",
+        "OUTPUT_DIR": "output",
+        "SETTINGS_DIR": "settings",
+        "LOG_DIR": "logs",
         "ENV": "DEV"
     },
     "DEV": {
+        "VERSION": "0.0.1",
+        "SECRET_KEY": "",
         "DEBUG": "T",
         "TEST_TMP_DIR": "tests",
         "TEST_TIMEOUT": 20
     },
     "PRD": {
+        "VERSION": "0.0.1",
+        "SECRET_KEY": "",
         "DEBUG": "F",
         "SERVICE": "travis-ci",
         "HOOK_URL": "..."
