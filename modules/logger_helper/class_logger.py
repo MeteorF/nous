@@ -31,7 +31,7 @@ class logger():
     #-----------
     
     def __init__(self, args):
-        logfileName = args.get("logFileName")
+        self.logfileName = args.get("logFileName")
         #logfileName = logFilePath
         
         global logging
@@ -39,43 +39,52 @@ class logger():
         
         logging.basicConfig(
             # filename = logfileName, \
-            handlers = [logging.FileHandler(logfileName, 'a', 'utf-8')], \
+            handlers = [logging.FileHandler(self.logfileName, 'a', 'utf-8')], \
             
             # Will ignore levels lower than setting (e.g. set=info will ignore debug)
             level = logging.DEBUG, \
-            format = '%(asctime)s | %(levelname)s | %(message)s'
+            format = '%(asctime)s | %(levelname)s | %(processName)s | %(module)s | %(funcName)s | %(lineno)s | %(message)s'
             
-            # Example: 2018-11-05 00:12:33,585 | INFO | -------Start of program-------
+            # Example: 2018-11-05 19:53:36,275 | INFO | class_logger.py | start | 59 | -------Start of program-------
             # To parse timestamp in pandas:
             #        pd.to_datetime('2018-11-05 00:12:33,585', format="%Y-%m-%d %H:%M:%S,%f")
             # return: Timestamp('2018-11-05 00:12:33.586000')
             
             #datefmt = '%Y-%m-%d %H:%M:%S'
-            # Example: 2018-11-05 00:12:33 | INFO | -------Start of program-------
+            # Example: 2018-11-05 19:53:36 | INFO | class_logger.py | start | 59 | -------Start of program-------
         )
         self.start()
     
+    def getCaller(self):
+        caller = str(logging.getLogger(__name__))
+        return caller
+    
     def start(self):
-        logging.info('Start of program'.center(30, '-'))
+        logging.info(self.getCaller() + ' | ' + 'Start of program'.center(30, '-'))
         
     def log_debug(self, msg=''):
-        logging.debug(msg)
+        logging.debug(self.getCaller() + ' | ' + msg)
         
     def log_info(self, msg=''):
-        logging.info(msg)
+        logging.info(self.getCaller() + ' | ' + msg)
         
     def log_warning(self, msg=''):
-        logging.warning(msg)
+        logging.warning(self.getCaller() + ' | ' + msg)
         
     def log_error(self, msg=''):
-        logging.error(msg)
+        logging.error(self.getCaller() + ' | ' + msg)
         
     def log_critical(self, msg=''):
-        logging.critical(msg)
+        logging.critical(self.getCaller() + ' | ' + msg)
     
     def shutdown(self):
-        logging.info('End of program'.center(30, '-'))
+        logging.info(self.getCaller() + ' | ' + 'End of program'.center(30, '-'))
         logging.shutdown()
+        
+    def printLogString(self):
+        print (f'logFileName = {self.logfileName}')
+        with open(self.logfileName, 'r') as f:
+            print(f.read())
 
 
 # In[4]:
@@ -109,13 +118,9 @@ def _test():
     # init logger and test log msg
     
     global logger_1
-    
+    logFileName = path_helper.getOutputFileName(path=__config__.LOG_DIR, custom_name='log', extension='.log')
     config_log = {
-        "logFileName" : path_helper.getOutputFileName(
-                            path = __config__.LOG_DIR,
-                            custom_name='log',
-                            extension='.log'
-                        )
+        "logFileName" : logFileName
     }
     
     logger_1 = logger(config_log)
@@ -127,6 +132,13 @@ def _test():
     logger_1.log_critical('-----critical-----')
     
     logger_1.shutdown()
+    
+    
+    #print (f'logFileName = {logFileName}')
+    #with open(logFileName, 'r') as f:
+    #    print(f.read())
+    
+    logger_1.printLogString()
     
 if __name__ == '__main__':
     _test()
